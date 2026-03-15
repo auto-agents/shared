@@ -1,0 +1,28 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "auto-agents shared libraries",
+  "keywords": [
+    "shared",
+    "library"
+  ],
+  "homepage": "https://github.com/auto-agents/shared#readme",
+  "bugs": {
+    "url": "https://github.com/auto-agents/shared/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auto-agents/shared.git"
+  },
+  "license": "GPL-3.0-or-later",
+  "author": "franck gaspoz",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "async-mutex": "^0.5.0",
+    "chalk": "^5.6.2"
+  }
+}
