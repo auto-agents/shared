@@ -58,8 +58,7 @@ export const getAgentSpecification = (ctx, id) => {
 }
 
 export const getLoadedAgent = (ctx, id) => {
-    const t = ctx.components.agents.getAgents()
-    return t[id] || null
+    return ctx.components.agents.getAgent(id)
 }
 
 export const getTUIAgent = (ctx) => {
