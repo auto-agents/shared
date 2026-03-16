@@ -1,5 +1,10 @@
 import util from "util"
 import chalk from "chalk"
+import { renderMarkdown } from 'cli-html'
+
+export const renderMd = text => {
+    return renderMarkdown(text)
+}
 
 export const replaceUnicodes = (ctx, str) => {
     ctx.ui.decorators.replaceUnicodes.forEach(t => [
