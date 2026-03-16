@@ -42,40 +42,49 @@ export const isSpeechAvailable = ctx => {
 }
 
 export const isUserSpeakEchoAvailable = ctx => {
-    return getAgent(ctx, TUIAgentId).repeatUserQuery.enabled
+    return getTUIAgent(ctx)?.repeatUserQuery?.enabled
         && isSpeechAvailable(ctx)
 }
 
 export const isTUIAgentSpeakEnabled = ctx => {
-    return getAgent(ctx, TUIAgentId).speak.enabled
+    return getTUIAgent(ctx)?.speak?.enabled
         && isSpeechAvailable(ctx)
 }
 
-export const getAgent = (ctx, id) => {
+// TODO: rename to getAgentSpecification
+export const getAgentSpecification = (ctx, id) => {
     const t = ctx.agents.list.filter(x => x.id == id)
     return t.length > 0 ? t[0] : null
 }
 
-export const dumpAgent = (ctx, agentId, o, txt) => {
-    o.newLine()
-    o.appendLine(getAgentDump(ctx, agentId, txt))
+export const getLoadedAgent = (ctx, id) => {
+    const t = ctx.components.agents.getAgents()
+    return t[id] || null
 }
 
-export const getAgentDump = (ctx, agentId, txt) => {
-    const agent = getAgent(ctx, agentId)
+export const getTUIAgent = (ctx) => {
+    return getLoadedAgent(ctx, TUIAgentId)
+}
+
+export const dumpLoadedAgent = (ctx, agentId, o, txt) => {
+    o.newLine()
+    o.appendLine(getLoadedAgentDump(ctx, agentId, txt))
+}
+
+export const getLoadedAgentDump = (ctx, agentId, txt) => {
+    const agent = getLoadedAgent(ctx, agentId)
     if (txt != null) txt = ': ' + txt
     txt ||= ''
     return `agent '${agentId}' on ${agent?.moduleName} (provider: ${agent?.module?.config?.provider}) ${txt}`
 }
 
 export const isSpeakErrorsEnabled = ctx => {
-    return getAgent(ctx, TUIAgentId)?.speakErrors.enabled
+    return getTUIAgent(ctx)?.speakErrors.enabled
         && isSpeechAvailable(ctx)
 }
 
-export const isAIAgentAvailable = ctx => {
-    return ctx.components.module.AIAgent != null
-        && ctx.components.module.AIAgent !== undefined
+export const isTUIAIAgentAvailable = ctx => {
+    return getTUIAgent(ctx) != null
 }
 
 export const isAppInitialized = ctx => {
@@ -141,10 +150,10 @@ export default {
     getTmpFile,
     resolvePath,
     isSpeechAvailable,
+    isTUIAIAgentAvailable,
     isUserSpeakEchoAvailable,
-    isAIAgentAvailable,
     trace,
     mdBlockJson,
     isSpeakErrorsEnabled,
-    getAgent
+    getLoadedAgent
 }
