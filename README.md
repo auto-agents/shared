@@ -7,7 +7,7 @@
 
 ---
 
-**This repository contains the shared librairies**
+**This repository contains shared librairies & components by auto agent projects**
 </td>
 <td>
 <img src="assets/agent-5.jfif" alt="Auto Agents" width="800/px">
