@@ -31,8 +31,10 @@ export const PromptVisibilityLostEvent = 'PromptVisibilityLostEvent'
 export const KeyPressedEvent = 'KeyPressedEvent'    // NU
 export const KeyboardCaptureRequestEvent = 'KeyboarCaptureRequestEvent'
 export const CommandKeyboardCaptureReleaseEvent = 'CommandKeyboardCaptureReleaseEvent'
+export const MouseActionEvent = 'MouseActionEvent'
 
 export const SetStatusMessageEvent = 'SetStatusMessageEvent'
+export const SetTUIStatusMessageEvent = 'SetTUIStatusMessageEvent'
 export const InputToStartEvent = 'InputToStartEvent'
 export const InputToEndEvent = 'InputToEndEvent'
 export const SpeakCommandEvent = 'SpeakCommandEvent'
@@ -91,4 +93,8 @@ export const speakEvent = (from, text, voice, waitForEnd, interrupt) => {
         waitForEnd: waitForEnd,
         interrupt: interrupt
     }
+}
+
+export const mouseEvent = ({ x, y, button, action, shift, alt, ctrl, wheelUp, wheelDown }) => {
+    return { x, y, button, action, shift, alt, ctrl }
 }

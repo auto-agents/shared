@@ -23,7 +23,7 @@ export default class Command {
     checkParameter(com, name, value) {
         const p = com.config.options[name]
 
-        if (p.required && value == p.default || value == null) {
+        if ((p.required && value == p.default) || value == null) {
             this.parameterMissing(name)
             return false
         }
