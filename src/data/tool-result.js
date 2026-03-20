@@ -4,6 +4,7 @@ export default class ToolResult {
 
     constructor(content, files) {
         this.content = content
+        this.files = files
     }
 
 }
