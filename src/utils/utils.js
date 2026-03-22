@@ -93,6 +93,12 @@ export const getSystemVoice = ctx => {
     return a.TTSModule.getPreferredVoices(a.speak?.preferredVoices)
 }
 
+export const getAgentVoice = (ctx, agentId) => {
+    const a = getLoadedAgent(ctx, agentId)
+    if (!a?.TTSModule) return null
+    return a.TTSModule.getPreferredVoices(a.speak?.preferredVoices)
+}
+
 export const getUserVoice = ctx => {
     const a = getTUIAgent(ctx)
     if (!a?.TTSModule) return null
@@ -214,6 +220,7 @@ export default {
     mdBlockJson,
     isSpeakErrorsEnabled,
     getLoadedAgent,
+    getAgentVoice,
     getSystemVoice,
     getErrorVoice,
     getUserVoice,
