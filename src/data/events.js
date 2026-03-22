@@ -42,6 +42,7 @@ export const SpeakCommandEvent = 'SpeakCommandEvent'
 export const ListSelectorOpenCommandEvent = 'ListSelectorOpenCommandEvent'
 
 export const AgentAddedEvent = 'AgentAddedEvent'
+export const AgentResponseEvent = 'AgentResponseEvent'
 
 export const ModuleLoadedEvent = 'ModuleLoadedEvent'
 export const ModuleUnloadedEvent = 'ModuleUnloadedEvent'
@@ -97,4 +98,11 @@ export const speakEvent = (from, text, voice, waitForEnd, interrupt) => {
 
 export const mouseEvent = ({ x, y, button, action, shift, alt, ctrl, wheelUp, wheelDown }) => {
     return { x, y, button, action, shift, alt, ctrl }
+}
+
+export const agentResponseEvent = (dialogContext, response) => {
+    return {
+        dialogContext: dialogContext,
+        response: response
+    }
 }
