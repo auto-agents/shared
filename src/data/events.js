@@ -44,6 +44,7 @@ export const ListSelectorOpenCommandEvent = 'ListSelectorOpenCommandEvent'
 export const AgentAddedEvent = 'AgentAddedEvent'
 export const AgentRemovedEvent = 'AgentRemovedEvent'
 export const AgentResponseEvent = 'AgentResponseEvent'
+export const AgentGetFocusSpeakEvent = 'AgentGetFocusSpeakEvent'
 
 export const ModuleLoadedEvent = 'ModuleLoadedEvent'
 export const ModuleUnloadedEvent = 'ModuleUnloadedEvent'
