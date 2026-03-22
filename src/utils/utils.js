@@ -109,6 +109,46 @@ export const isAppInitialized = ctx => {
     return ctx.components.app.isInitialized
 }
 
+export const addServer = (ctx, server) => {
+    const srv = getServer(ctx, server)
+    if (!srv) {
+        ctx.servers.running.push(server)
+        return 1
+    }
+    else
+        srv.share++
+    return srv.share
+}
+
+export const getServer = (ctx, server) => {
+    const lst = ctx.servers.running.filter(srv =>
+        !srv.equalsTo(server)
+    )
+    return lst.length > 0 ? lst[0] : null
+}
+
+export const removeServer = (ctx, server) => {
+    const srv = getServer(ctx, server)
+    if (srv) {
+        srv.share--
+        if (srv.share == 0)
+            ctx.servers.running = ctx.servers.running.filter(s =>
+                !s.equalsTo(srv)
+            )
+        return srv.share
+    }
+    return 0
+}
+
+export const isServerRunnning = (ctx, server) => {
+    var running = false
+    for (var i = 0; i < ctx.servers.running; i++) {
+        const srv = ctx.servers.running[i]
+        running |= srv.equalsTo(server)
+    }
+    return running
+}
+
 export const trace = (ctx, str) => {
     const o = ctx.components.output
     o.newLine()
@@ -176,5 +216,9 @@ export default {
     getLoadedAgent,
     getSystemVoice,
     getErrorVoice,
-    getUserVoice
+    getUserVoice,
+    addServer,
+    removeServer,
+    getServer,
+    isServerRunnning
 }
