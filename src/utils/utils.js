@@ -42,13 +42,19 @@ export const isSpeechAvailable = agent => {
 
 export const isUserSpeakEchoAvailable = ctx => {
     const a = getTUIAgent(ctx)
-    return getTUIAgent(ctx)?.repeatUserQuery?.enabled
+    return a?.repeatUserQuery?.enabled
         && isSpeechAvailable(a)
 }
 
 export const isTUIAgentSpeakEnabled = ctx => {
     const a = getTUIAgent(ctx)
-    return getTUIAgent(ctx)?.speak?.enabled
+    return a?.speak?.enabled
+        && isSpeechAvailable(a)
+}
+
+export const isAgentSpeakEnabled = (ctx, agentId) => {
+    const a = getLoadedAgent(ctx, agentId)
+    return a?.speak?.enabled
         && isSpeechAvailable(a)
 }
 
@@ -218,6 +224,7 @@ export default {
     isUserSpeakEchoAvailable,
     trace,
     mdBlockJson,
+    isAgentSpeakEnabled,
     isSpeakErrorsEnabled,
     getLoadedAgent,
     getAgentVoice,
