@@ -36,22 +36,22 @@ export const resolvePath = (baseBase, newPath) => {
     return path.isAbsolute(newPath) ? newPath : path.normalize(path.join(baseBase, newPath))
 }
 
-export const isSpeechAvailable = ctx => {
-    return ctx.components.module.speech != null
-        && ctx.components.module.speech !== undefined
+export const isSpeechAvailable = agent => {
+    return agent?.TTSModule !== null && agent?.TTSModule !== undefined
 }
 
 export const isUserSpeakEchoAvailable = ctx => {
+    const a = getTUIAgent(ctx)
     return getTUIAgent(ctx)?.repeatUserQuery?.enabled
-        && isSpeechAvailable(ctx)
+        && isSpeechAvailable(a)
 }
 
 export const isTUIAgentSpeakEnabled = ctx => {
+    const a = getTUIAgent(ctx)
     return getTUIAgent(ctx)?.speak?.enabled
-        && isSpeechAvailable(ctx)
+        && isSpeechAvailable(a)
 }
 
-// TODO: rename to getAgentSpecification
 export const getAgentSpecification = (ctx, id) => {
     const t = ctx.agents.list.filter(x => x.id == id)
     return t.length > 0 ? t[0] : null
@@ -78,12 +78,31 @@ export const getLoadedAgentDump = (ctx, agentId, txt) => {
 }
 
 export const isSpeakErrorsEnabled = ctx => {
-    return getTUIAgent(ctx)?.speakErrors.enabled
-        && isSpeechAvailable(ctx)
+    const a = getTUIAgent(ctx)
+    return a?.speakErrors.enabled
+        && isSpeechAvailable(a)
 }
 
 export const isTUIAIAgentAvailable = ctx => {
     return getTUIAgent(ctx) != null
+}
+
+export const getSystemVoice = ctx => {
+    const a = getTUIAgent(ctx)
+    if (!a?.TTSModule) return null
+    return a.TTSModule.getPreferredVoices(a.speak?.preferredVoices)
+}
+
+export const getUserVoice = ctx => {
+    const a = getTUIAgent(ctx)
+    if (!a?.TTSModule) return null
+    return a.TTSModule.getPreferredVoices(a.repeatUserQuery?.preferredVoices)
+}
+
+export const getErrorVoice = ctx => {
+    const a = getTUIAgent(ctx)
+    if (!a?.TTSModule) return null
+    return a.TTSModule.getPreferredVoices(a.speakErrors?.preferredVoices)
 }
 
 export const isAppInitialized = ctx => {
@@ -154,5 +173,8 @@ export default {
     trace,
     mdBlockJson,
     isSpeakErrorsEnabled,
-    getLoadedAgent
+    getLoadedAgent,
+    getSystemVoice,
+    getErrorVoice,
+    getUserVoice
 }

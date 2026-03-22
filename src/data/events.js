@@ -86,8 +86,9 @@ export const errorEvent = (from, err) => {
     }
 }
 
-export const speakEvent = (from, text, voice, waitForEnd, interrupt) => {
+export const speakEvent = (dialogContext, from, text, voice, waitForEnd, interrupt) => {
     return {
+        dialogContext: dialogContext,
         from: from,
         text: text,
         voice: voice,
