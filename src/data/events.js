@@ -42,6 +42,7 @@ export const SpeakCommandEvent = 'SpeakCommandEvent'
 export const ListSelectorOpenCommandEvent = 'ListSelectorOpenCommandEvent'
 
 export const AgentAddedEvent = 'AgentAddedEvent'
+export const AgentRemovedEvent = 'AgentRemovedEvent'
 export const AgentResponseEvent = 'AgentResponseEvent'
 
 export const ModuleLoadedEvent = 'ModuleLoadedEvent'
