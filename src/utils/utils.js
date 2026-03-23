@@ -214,6 +214,10 @@ export const toJson = (o, tab = 2) => {
     return JSON.stringify(o, getCircularReplacer(), tab)
 }
 
+export const jsonClone = o => {
+    return JSON.parse(toJson(o, 0))
+}
+
 export default {
     callAsync,
     wait,
@@ -224,6 +228,8 @@ export default {
     isUserSpeakEchoAvailable,
     trace,
     mdBlockJson,
+    toJson,
+    jsonClone,
     isAgentSpeakEnabled,
     isSpeakErrorsEnabled,
     getLoadedAgent,
