@@ -128,13 +128,13 @@ export const addServer = (ctx, server) => {
         return 1
     }
     else
-        srv.share++
+        srv.share = srv.share + 1
     return srv.share
 }
 
 export const getServer = (ctx, server) => {
     const lst = ctx.servers.running.filter(srv =>
-        !srv.equalsTo(server)
+        srv.equalsTo(server)
     )
     return lst.length > 0 ? lst[0] : null
 }

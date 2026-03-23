@@ -4,7 +4,7 @@ export default class Server {
         this.id = id
         this.baseUrl = baseUrl
         this.port = port
-        this.share = 1
+        this.share = share
     }
 
     equalsTo(server) {
