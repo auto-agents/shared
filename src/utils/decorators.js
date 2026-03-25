@@ -47,7 +47,7 @@ export const box = (ctx, title, lines, output, backgroundColor, borderColor) => 
     })
     t.push(bottomRow(w))
 
-    t.forEach(x => output.appendLine(x, false))
+    t.forEach(x => output.appendLine(x, 0, false))
 
     output.updateView()
 
