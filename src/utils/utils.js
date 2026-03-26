@@ -1,4 +1,4 @@
-import { existsSync } from 'fs'
+import { existsSync, writeFileSync } from 'fs'
 import path from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
@@ -30,6 +30,11 @@ export const getTmpFile = (ctx) => {
         folder: tmpDir,
         path: fpath
     }
+}
+
+export const saveToTemp = (ctx, filename, content) => {
+    const p = path.join(process.cwd(), ctx.paths.tmp, filename)
+    writeFileSync(p, content)
 }
 
 export const resolvePath = (baseBase, newPath) => {
@@ -240,5 +245,6 @@ export default {
     addServer,
     removeServer,
     getServer,
-    isServerRunnning
+    isServerRunnning,
+    saveToTemp
 }
