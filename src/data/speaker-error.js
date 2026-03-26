@@ -8,6 +8,10 @@ export default class SpeakerError extends Error {
         super(message, options)
     }
 
+    static fromMessage(message) {
+        return new SpeakerError(message)
+    }
+
     static fromErr(message, err) {
         return new SpeakerError(message, { cause: err })
     }

@@ -30,7 +30,8 @@ export class FifoStack {
     traceOn = false
     taskIdCounter = 0
 
-    constructor(from, ctx, initialTasks = []) {
+    constructor(from, ctx, initialTasks = [], traceOn = false) {
+        this.traceOn = traceOn
         this.from = from
         this.ctx = ctx
         this.queue = [...initialTasks]; // Use a copy to avoid modifying the original array
