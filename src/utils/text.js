@@ -49,7 +49,8 @@ export const splitSentence = (ctx, text) => {
         else {
             if (s.length == 1) {
                 if (k > 0) {
-                    t2[k - 1] = t2[k - 1] + s[0]
+                    const z = t2.length - 1
+                    t2[z] = t2[z] + s[0]
                     k++
                 }
                 else {
