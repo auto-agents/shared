@@ -13,7 +13,7 @@ export const splitSentence = (ctx, text) => {
         text = text.replaceAll(conf.removeChars[i], '')
 
     for (var i = 0; i < text.length; i++) {
-        const c = text[i]
+        var c = text[i]
         const pc = i > 0 ? text[i - 1] : null
         const nc = i < text.length ? text[i + 1] : null
         if (sc.includes(c)
@@ -22,8 +22,17 @@ export const splitSentence = (ctx, text) => {
             )
         ) {
             // x -> i
-            t.push(text.substring(x, i + 1).trim())
-            x = i + 1
+            var addMoreEnd = false
+            var j = i + 1
+            while (!addMoreEnd && j < text.length) {
+                c = text[j]
+                if (conf.includeAfterSplit.includes(c))
+                    j++
+                else
+                    addMoreEnd = true
+            }
+            t.push(text.substring(x, j).trim())
+            x = j
         }
     }
     if (x < text.length)
