@@ -13,6 +13,6 @@ export default class SpeakerError extends Error {
     }
 
     static fromErr(message, err) {
-        return new SpeakerError(message, { cause: err })
+        return new SpeakerError(message + ': ' + err?.message, { cause: err })
     }
 }
