@@ -49,19 +49,19 @@ export const splitSentence = (ctx, text) => {
         }
         else {
             if (s.length == 1) {
-                if (conf.includeAfterSplit.includes(s[0])) {
+                //if (conf.includeAfterSplit.includes(s[0])) {
+                k++
+                if (k < t.length) {
+                    t2.push(s[0] + t[k])
                     k++
-                    if (k < t.length) {
-                        t2.push(s[0] + t[k])
-                        k++
-                    }
-                    else
-                        t2.push(s)
                 }
+                else
+                    t2.push(s)
+                /*}
                 else {
                     t2.push(s)
                     k++
-                }
+                }*/
             }
             else {
                 t2.push(s)
