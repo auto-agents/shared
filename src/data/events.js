@@ -101,7 +101,7 @@ export const speakEvent = (dialogContext, from, text, voice, waitForEnd, interru
 }
 
 export const mouseEvent = ({ x, y, button, action, shift, alt, ctrl, wheelUp, wheelDown }) => {
-	return { x, y, button, action, shift, alt, ctrl }
+	return { x, y, button, action, shift, alt, ctrl, wheelUp, wheelDown }
 }
 
 export const agentResponseEvent = (dialogContext, response) => {
