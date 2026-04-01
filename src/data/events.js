@@ -67,46 +67,46 @@ export const LogErrorEvent = 'LogErrorEvent'
 export const LogWarningEvent = 'LogWarningEvent'
 
 export const dialogEvent = ({
-    dialogContext,
-    message = null,
-    toolSpec = null,
-    result = null,
-    error = null
+	dialogContext,
+	message = null,
+	toolSpec = null,
+	result = null,
+	error = null
 }) => {
-    return {
-        dialogContext: dialogContext,
-        message: message,
-        toolSpec: toolSpec,
-        result: result,
-        error: error
-    }
+	return {
+		dialogContext: dialogContext,
+		message: message,
+		toolSpec: toolSpec,
+		result: result,
+		error: error
+	}
 }
 
 export const errorEvent = (from, err) => {
-    return {
-        from: from,
-        error: err
-    }
+	return {
+		from: from,
+		error: err
+	}
 }
 
 export const speakEvent = (dialogContext, from, text, voice, waitForEnd, interrupt) => {
-    return {
-        dialogContext: dialogContext,
-        from: from,
-        text: text,
-        voice: voice,
-        waitForEnd: waitForEnd,
-        interrupt: interrupt
-    }
+	return {
+		dialogContext: dialogContext,
+		from: from,
+		text: text,
+		voice: voice,
+		waitForEnd: waitForEnd,
+		interrupt: interrupt
+	}
 }
 
 export const mouseEvent = ({ x, y, button, action, shift, alt, ctrl, wheelUp, wheelDown }) => {
-    return { x, y, button, action, shift, alt, ctrl }
+	return { x, y, button, action, shift, alt, ctrl }
 }
 
 export const agentResponseEvent = (dialogContext, response) => {
-    return {
-        dialogContext: dialogContext,
-        response: response
-    }
+	return {
+		dialogContext: dialogContext,
+		response: response
+	}
 }
