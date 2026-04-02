@@ -75,15 +75,17 @@ export const unescapeCodeString = (str) => {
 		var c = str[i]
 
 		var pc = i > 0 ? str[i - 1] : null
+		var nc = i < str.length - 1 ? str[i + 1] : null
 		if (!inStr) {
 			if (c == "'" || c == '"') {
 				inStr = c
 				r += c
 				i++
 			} else {
-				if (c == '\\' && pc == '\\') {
+				if (c == '\\' && pc != '\\' && nc == 'n') {
 					// skip a \
-					i++
+					r += '\n'
+					i += 2
 				}
 				else {
 					r += c
