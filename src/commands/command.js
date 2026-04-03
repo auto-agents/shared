@@ -65,14 +65,14 @@ export default class Command {
         )
     }
 
-    checkModuleAvailable(name) {
-        const r = !this.ctx.components.module[name]
+    checkPluginAvailable(name) {
+        const r = !this.ctx.components.plugin[name]
         if (!r)
             e.emit(CommandRunErrorEvent,
                 {
                     ...errorEvent(
                         this.From,
-                        new Error('module not available: ' + name))
+                        new Error('plugin not available: ' + name))
                 }
             )
         return r
