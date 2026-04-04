@@ -1,7 +1,15 @@
 import { existsSync, writeFileSync } from 'fs'
-import path from 'path'
+import path, { join } from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
+
+export const sessionPath = ctx => {
+	return join(
+		process.cwd(),
+		ctx.paths.sessions,
+		ctx.session.id
+	)
+}
 
 export const setEnvVars = (ctx, src) => {
 	for (const [name, value] of Object.entries(ctx.env)) {
@@ -255,5 +263,6 @@ export default {
 	getServer,
 	isServerRunnning,
 	saveToTemp,
-	setEnvVars
+	setEnvVars,
+	sessionPath
 }

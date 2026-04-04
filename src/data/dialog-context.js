@@ -1,4 +1,4 @@
-import Dialoger from "../../../cli/source/components/dialog/dialoger"
+import Dialoger from "../../../cli/src/components/dialog/dialoger"
 import OutputContext from "./output-context"
 
 export default class DialogContext {
