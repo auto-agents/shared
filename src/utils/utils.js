@@ -3,6 +3,14 @@ import path from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
 
+export const setEnvVars = (ctx, src) => {
+	for (const [name, value] of Object.entries(ctx.env)) {
+		const tpl = '{{' + name + '}}'
+		src = src.replaceAll(tpl, value)
+	}
+	return src
+}
+
 export const callAsync = (func) => {
 	(async () => {
 		await func()
@@ -246,5 +254,6 @@ export default {
 	removeServer,
 	getServer,
 	isServerRunnning,
-	saveToTemp
+	saveToTemp,
+	setEnvVars
 }
