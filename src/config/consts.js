@@ -1,7 +1,7 @@
 export const Platforms = {
-    windows: 'windows',
-    mac: 'mac',
-    linux: 'linux'
+	windows: 'windows',
+	mac: 'mac',
+	linux: 'linux'
 }
 
 // keys
@@ -35,3 +35,8 @@ export const Mouse_Action_Release = 'release'
 
 export const TUIAgentId = 'TUI'
 
+// config directives
+
+export const ConfigAppendInstructions = '_appendInstructions'
+export const ConfigMergePropsFromPath = '_mergePropsFromPath'
+export const ConfigMergeProps = '_mergeProps'
