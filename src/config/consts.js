@@ -19,6 +19,9 @@ export const CTRL_F10 = '[21;5~'
 export const CTRL_F9 = '[20;5~'
 export const SHIFT_UP = '[1;2A'
 export const SHIFT_DOWN = '[1;2B'
+export const SUPR = '[3~'
+export const BACKSPACE = 127
+export const RETURN = 13
 
 // mouse
 

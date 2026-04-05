@@ -28,6 +28,7 @@ export const CommandSetInputEvent = 'CommandSetInputEvent'
 export const ConsoleClearedEvent = 'ConsoleClearedEvent'
 export const PromptVisibilityLostEvent = 'PromptVisibilityLostEvent'
 
+export const KeyboardInputEvent = 'KeyboardInputEvent'
 export const KeyPressedEvent = 'KeyPressedEvent'    // NU
 export const KeyboardCaptureRequestEvent = 'KeyboarCaptureRequestEvent'
 export const CommandKeyboardCaptureReleaseEvent = 'CommandKeyboardCaptureReleaseEvent'
