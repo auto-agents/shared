@@ -20,7 +20,7 @@ export const tmpPath = ctx => {
 
 export const setEnvVars = (ctx, src) => {
 	for (const [name, value] of Object.entries(ctx.env)) {
-		const tpl = '{{' + name + '}}'
+		const tpl = '${' + name + '}'
 		src = src.replaceAll(tpl, value)
 	}
 	return src
