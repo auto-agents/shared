@@ -11,6 +11,13 @@ export const sessionPath = ctx => {
 	)
 }
 
+export const tmpPath = ctx => {
+	return join(
+		process.cwd(),
+		ctx.paths.tmp
+	)
+}
+
 export const setEnvVars = (ctx, src) => {
 	for (const [name, value] of Object.entries(ctx.env)) {
 		const tpl = '{{' + name + '}}'
@@ -30,9 +37,7 @@ export const wait = (ms) => {
 }
 
 export const getTmpFile = (ctx) => {
-	const tmpDir = path.join(
-		process.cwd(),
-		ctx.paths.tmp)
+	const tmpDir = tmpPath(ctx)
 	var exists = true
 	var name = null
 	var fpath = null
@@ -49,7 +54,7 @@ export const getTmpFile = (ctx) => {
 }
 
 export const saveToTemp = (ctx, filename, content) => {
-	const p = path.join(process.cwd(), ctx.paths.tmp, filename)
+	const p = path.join(tmpPath(ctx), filename)
 	writeFileSync(p, content)
 }
 

@@ -34,7 +34,7 @@ export const Mouse_Action_Release = 'release'
 // ids
 
 export const TUIAgentId = 'TUI'
-export const DefaultSessionId = 'id'
+export const DefaultSessionId = 'default'
 
 // config directives
 
