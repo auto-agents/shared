@@ -10,6 +10,7 @@ export default class DialogContext {
 
 	userOutputContext = null
 	systemOutputContext = null
+	systemResponseContentAccumulator = ''
 
 	previousTasks = []
 
