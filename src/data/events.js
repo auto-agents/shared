@@ -113,11 +113,12 @@ export const agentResponseEvent = (dialogContext, response) => {
 	}
 }
 
-export const agentPartialResponseEvent = (dialogContext, event, partialContent, options) => {
+export const agentPartialResponseEvent = (dialogContext, event, partialContent, content, options) => {
 	return {
 		dialogContext: dialogContext,
 		event: event,
 		partialContent: partialContent,
+		content: content,
 		options: options
 	};
 }
