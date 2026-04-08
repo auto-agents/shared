@@ -30,6 +30,9 @@ export class FifoStack {
 
 	traceOn = false
 	taskIdCounter = 0
+	queue = null
+	currentTaskIndex = null
+	taskIdCounter = 0
 
 	constructor(from, ctx, initialTasks = [], traceOn = false) {
 		this.traceOn = traceOn
@@ -84,6 +87,16 @@ export class FifoStack {
 			.acquire()  // locked, blocked
 
 		return task
+	}
+
+	/**
+	 * clear the fifo stack
+	 */
+	async clearTasks() {
+		await this.mutex.runExclusive(async () => {
+			this.queue = []
+			this.taskIdCounter = 0
+		})
 	}
 
 	/**
