@@ -45,6 +45,7 @@ export const ListSelectorOpenCommandEvent = 'ListSelectorOpenCommandEvent'
 export const AgentAddedEvent = 'AgentAddedEvent'
 export const AgentRemovedEvent = 'AgentRemovedEvent'
 export const AgentResponseEvent = 'AgentResponseEvent'
+export const AgentPartialResponseEvent = 'AgentPartialResponseEvent'
 export const AgentGetFocusSpeakEvent = 'AgentGetFocusSpeakEvent'
 export const AgentGetFocusViewEvent = 'AgentGetFocusViewEvent'
 
@@ -110,4 +111,13 @@ export const agentResponseEvent = (dialogContext, response) => {
 		dialogContext: dialogContext,
 		response: response
 	}
+}
+
+export const agentPartialResponseEvent = (dialogContext, event, partialContent, options) => {
+	return {
+		dialogContext: dialogContext,
+		event: event,
+		partialContent: partialContent,
+		options: options
+	};
 }

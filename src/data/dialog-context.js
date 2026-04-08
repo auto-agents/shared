@@ -9,7 +9,7 @@ export default class DialogContext {
 	round = null
 
 	userOutputContext = null
-	aiOutputContext = null
+	systemOutputContext = null
 
 	previousTasks = []
 
@@ -30,7 +30,7 @@ export default class DialogContext {
 		task = null,
 		round = 1,
 		userOutputContext = null,
-		aiOutputContext = null
+		systemOutputContext = null
 	) {
 		this.outputContext = outputContext
 		this.dialoger = dialoger
@@ -39,7 +39,7 @@ export default class DialogContext {
 		this.task = task
 		this.round = round
 		this.userOutputContext = userOutputContext
-		this.aiOutputContext = aiOutputContext
+		this.systemOutputContext = systemOutputContext
 	}
 
 	clone() {
@@ -51,7 +51,7 @@ export default class DialogContext {
 			this.task,
 			this.round,
 			this.userOutputContext,
-			this.aiOutputContext
+			this.systemOutputContext
 		)
 	}
 

@@ -10,9 +10,14 @@ export default class OutputContext {
 		this.output = output
 		this.margin = margin
 		this.marginBase = margin
-		this.y0 = output.getSource().rows.length
+		this.y0 = this.y1 = output.getSource().rows.length
 		this.x = x
 		this.y = y
+	}
+
+	lastPos() {
+		const y = this.output.getSource().rows.length
+		return { y0: y, y1: y }
 	}
 
 	clone() {
