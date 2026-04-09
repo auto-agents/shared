@@ -1,4 +1,4 @@
-export const splitSentence = (ctx, text) => {
+export const splitSentence = (ctx, text, noTrim = false) => {
 	const conf = ctx.dialoger.sentenceSpliter
 	const sc = conf.splitChars
 	var t = []
@@ -31,12 +31,15 @@ export const splitSentence = (ctx, text) => {
 				else
 					addMoreEnd = true
 			}
-			t.push(text.substring(x, j).trim())
+			t.push(
+				!noTrim ? text.substring(x, j).trim()
+					: text.substring(x, j))
 			x = j
 		}
 	}
 	if (x < text.length)
-		t.push(text.substring(x).trim())
+		t.push(!noTrim ? text.substring(x).trim()
+			: text.substring(x, j))
 	t = t.filter(x => x.length > 0)
 
 	const t2 = []

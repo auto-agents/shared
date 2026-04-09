@@ -22,8 +22,8 @@ export default class PartialContentAccumulatorSplitter {
 		});
 		if (!spEx) return []
 
-		const t = splitSentence(this.ctx, str)
-		//console.log(t)
+		const t = splitSentence(this.ctx, str, true)
+
 		const res = []
 		const rest = []
 		t.forEach(s => {
@@ -33,9 +33,9 @@ export default class PartialContentAccumulatorSplitter {
 				rest.push(s)
 		})
 		this.accumulator = rest.join('')
-		/*if (res.length > 0) {
-			console.log(res)
-		}*/
+
+		//console.log(res)
+		//console.log('acc:', JSON.stringify(this.accumulator))
 		return res
 	}
 
