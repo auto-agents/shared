@@ -1,5 +1,6 @@
 import Dialoger from "../../../cli/src/components/dialog/dialoger"
 import OutputContext from "./output-context"
+import PartialContentAccumulatorSplitter from "../utils/text/partial-content-accumulator-splitter"
 
 export default class DialogContext {
 
@@ -10,7 +11,7 @@ export default class DialogContext {
 
 	userOutputContext = null
 	systemOutputContext = null
-	systemResponseContentAccumulator = ''
+	systemResponseContentAccumulator = null
 
 	previousTasks = []
 
@@ -31,7 +32,8 @@ export default class DialogContext {
 		task = null,
 		round = 1,
 		userOutputContext = null,
-		systemOutputContext = null
+		systemOutputContext = null,
+		systemResponseContentAccumulator = null
 	) {
 		this.outputContext = outputContext
 		this.dialoger = dialoger
@@ -41,6 +43,8 @@ export default class DialogContext {
 		this.round = round
 		this.userOutputContext = userOutputContext
 		this.systemOutputContext = systemOutputContext
+		this.systemResponseContentAccumulator = systemResponseContentAccumulator
+			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
 	}
 
 	clone() {
@@ -52,7 +56,8 @@ export default class DialogContext {
 			this.task,
 			this.round,
 			this.userOutputContext,
-			this.systemOutputContext
+			this.systemOutputContext,
+			this.systemResponseContentAccumulator
 		)
 	}
 
