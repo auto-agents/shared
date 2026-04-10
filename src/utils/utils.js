@@ -11,6 +11,15 @@ export const sessionPath = (ctx, id = null) => {
 	)
 }
 
+export const sessionDataFile = (ctx, id = null) => {
+	return join(
+		process.cwd(),
+		ctx.paths.sessions,
+		id || ctx.session.id,
+		ctx.paths.sessionDataFile
+	)
+}
+
 export const tmpPath = ctx => {
 	return join(
 		process.cwd(),

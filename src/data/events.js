@@ -48,6 +48,7 @@ export const AgentResponseEvent = 'AgentResponseEvent'
 export const AgentPartialResponseEvent = 'AgentPartialResponseEvent'
 export const AgentGetFocusSpeakEvent = 'AgentGetFocusSpeakEvent'
 export const AgentGetFocusViewEvent = 'AgentGetFocusViewEvent'
+export const DialogUserPromptBegin = 'DialogUserPromptBegin'
 
 export const PluginLoadedEvent = 'PluginLoadedEvent'
 export const PluginUnloadedEvent = 'PluginUnloadedEvent'
@@ -73,14 +74,16 @@ export const dialogEvent = ({
 	message = null,
 	toolSpec = null,
 	result = null,
-	error = null
+	error = null,
+	text = null
 }) => {
 	return {
 		dialogContext: dialogContext,
 		message: message,
 		toolSpec: toolSpec,
 		result: result,
-		error: error
+		error: error,
+		text: text
 	}
 }
 
