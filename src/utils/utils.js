@@ -3,11 +3,11 @@ import path, { join } from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
 
-export const sessionPath = ctx => {
+export const sessionPath = (ctx, id = null) => {
 	return join(
 		process.cwd(),
 		ctx.paths.sessions,
-		ctx.session.id
+		id || ctx.session.id
 	)
 }
 
