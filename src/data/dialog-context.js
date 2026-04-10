@@ -15,6 +15,21 @@ export default class DialogContext {
 
 	previousTasks = []
 
+	static empty() {
+		const dc = new DialogContext(
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			new Object())
+		dc.systemResponseContentAccumulator = null
+		return dc
+	}
+
 	/**
 	 * build a new DialogContext necessary to initiale a dialog
 	 * @param {OutputContext} outputContext current output context

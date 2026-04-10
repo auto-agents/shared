@@ -16,6 +16,9 @@ export default class Session {
 	rootDialogContext = null
 
 	// loaded plugins / agents
+	// loaded agents ids
+	agents = null
+	dialogCurrentTargetAgent = null
 
 	// agents config ? (prompt, instruct, ...)
 
@@ -24,16 +27,17 @@ export default class Session {
 	constructor(id, ctx) {
 		this.id = id
 		this.ctx = ctx
+		this.rootDialogContext = DialogContext.empty()
 	}
 
 	// late init session root data context
 	checkRootDataContext(dialogEvent) {
-		if (!this.rootDialogContext) {
+		if (!this.rootDialogContext.dialoger) {
 			const dc = dialogEvent.dialogContext
-			this.rootDialogContext = new DialogContext(
-				dc.outputContext,
+			this.rootDialogContext.outputContext =
+				dc.outputContext
+			this.rootDialogContext.dialoger =
 				dc.dialoger
-			)
 		}
 		return this
 	}
@@ -66,6 +70,8 @@ export default class Session {
 		this.id = s.id
 		this.description = s.description
 		this.commandHistory = s.commandHistory
+		this.agents = s.agents
+		this.dialogCurrentTargetAgent = s.dialogCurrentTargetAgent
 	}
 
 	static async new(ctx, id) {
