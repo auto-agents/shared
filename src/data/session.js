@@ -116,6 +116,7 @@ export default class Session {
 	}
 
 	async updateCommandHistory(cmd) {
+		this.commandHistory.push(cmd)
 		await appendFile(
 			Session.getHistoryFilePath(this.ctx, this.id),
 			cmd
