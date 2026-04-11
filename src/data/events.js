@@ -46,6 +46,7 @@ export const AgentAddedEvent = 'AgentAddedEvent'
 export const AgentRemovedEvent = 'AgentRemovedEvent'
 export const AgentResponseEvent = 'AgentResponseEvent'
 export const AgentPartialResponseEvent = 'AgentPartialResponseEvent'
+export const AgentPartialReasoningResponseEvent = 'AgentPartialReasoningResponseEvent'
 export const AgentGetFocusSpeakEvent = 'AgentGetFocusSpeakEvent'
 export const AgentGetFocusViewEvent = 'AgentGetFocusViewEvent'
 export const DialogUserPromptBegin = 'DialogUserPromptBegin'
@@ -116,12 +117,14 @@ export const agentResponseEvent = (dialogContext, response) => {
 	}
 }
 
-export const agentPartialResponseEvent = (dialogContext, event, partialContent, content, options) => {
+export const agentPartialResponseEvent = (dialogContext, event, partialContent, content, partialReasoningContent, reasoningContent, options) => {
 	return {
 		dialogContext: dialogContext,
 		event: event,
 		partialContent: partialContent,
 		content: content,
+		partialReasoningContent: partialReasoningContent,
+		reasoningContent: reasoningContent,
 		options: options
 	};
 }

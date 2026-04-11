@@ -13,6 +13,8 @@ export default class DialogContext {
 	systemOutputContext = null
 	systemResponseContentAccumulator = null
 
+	reasoningContent = []
+
 	previousTasks = []
 
 	static empty() {
@@ -25,7 +27,8 @@ export default class DialogContext {
 			null,
 			null,
 			null,
-			new Object())
+			new Object(),
+			[])
 		dc.systemResponseContentAccumulator = null
 		return dc
 	}
@@ -48,7 +51,8 @@ export default class DialogContext {
 		round = 1,
 		userOutputContext = null,
 		systemOutputContext = null,
-		systemResponseContentAccumulator = null
+		systemResponseContentAccumulator = null,
+		reasoningContent = []
 	) {
 		this.outputContext = outputContext
 		this.dialoger = dialoger
@@ -60,6 +64,7 @@ export default class DialogContext {
 		this.systemOutputContext = systemOutputContext
 		this.systemResponseContentAccumulator = systemResponseContentAccumulator
 			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
+		this.reasoningContent = reasoningContent
 	}
 
 	clone() {
@@ -72,7 +77,8 @@ export default class DialogContext {
 			this.round,
 			this.userOutputContext,
 			this.systemOutputContext,
-			this.systemResponseContentAccumulator
+			this.systemResponseContentAccumulator,
+			this.reasoningContent
 		)
 	}
 
