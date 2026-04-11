@@ -76,7 +76,8 @@ export const dialogEvent = ({
 	toolSpec = null,
 	result = null,
 	error = null,
-	text = null
+	text = null,
+	options = null
 }) => {
 	return {
 		dialogContext: dialogContext,
@@ -84,7 +85,8 @@ export const dialogEvent = ({
 		toolSpec: toolSpec,
 		result: result,
 		error: error,
-		text: text
+		text: text,
+		options: options
 	}
 }
 
