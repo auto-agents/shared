@@ -27,14 +27,6 @@ export const tmpPath = ctx => {
 	)
 }
 
-export const setEnvVars = (ctx, src) => {
-	for (const [name, value] of Object.entries(ctx.env)) {
-		const tpl = '${' + name + '}'
-		src = src.replaceAll(tpl, value)
-	}
-	return src
-}
-
 export const callAsync = (func) => {
 	(async () => {
 		await func()
@@ -245,6 +237,12 @@ const getCircularReplacer = () => {
 	};
 };
 
+export const evalValue = (expr) => {
+	var x
+	eval('x=' + expr)
+	return x
+}
+
 export const toJson = (o, tab = 2) => {
 	return JSON.stringify(o, getCircularReplacer(), tab)
 }
@@ -277,6 +275,6 @@ export default {
 	getServer,
 	isServerRunnning,
 	saveToTemp,
-	setEnvVars,
-	sessionPath
+	sessionPath,
+	evalValue
 }
