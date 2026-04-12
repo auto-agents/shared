@@ -66,6 +66,7 @@ export const ToolUnknownDialogEvent = 'ToolUnknownDialogEvent'
 export const ToolRunCompletedDialogEvent = 'ToolRunCompletedDialogEvent'
 export const ToolRunErrorDialogEvent = 'ToolRunEventDialogEvent'
 export const ToolRequiredByModelDialogEvent = 'ToolRequiredByModelDialogEvent'
+export const ToolLoopDialogEvent = 'ToolLoopDialogEvent'
 
 export const LogErrorEvent = 'LogErrorEvent'
 export const LogWarningEvent = 'LogWarningEvent'
