@@ -89,21 +89,20 @@ export default class DialogContext {
 		Logger.log(s)
 	}
 
-	clone(nodeType) {
+	clone(nodeType, incRound) {
 		const dc = new DialogContext(
 			this.outputContext,
 			this.dialoger,
 			this.agent,
 			this.fromAgent,
 			this.task,
-			this.round,
+			incRound ? this.round + 1 : this.round,
+			nodeType || this.nodeType,
 			this.userOutputContext,
 			this.systemOutputContext,
 			this.systemResponseContentAccumulator,
-			this.reasoningContent,
-			this.nodeType
+			this.reasoningContent
 		)
-		if (nodeType) dc.nodeType = nodeType
 		return dc
 	}
 
