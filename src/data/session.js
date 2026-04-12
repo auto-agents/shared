@@ -3,6 +3,8 @@ import { existsSync, mkdir, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { appendFile, writeFile } from "fs/promises";
 import DialogContext from "./dialog-context";
+import { RunCommandEvent } from "./events";
+import AIAgent from "../../../cli/src/components/ai/ai-agent";
 
 export default class Session {
 
@@ -64,6 +66,42 @@ export default class Session {
 		s.cloneFrom(st)
 		s.commandHistory = Session.loadCommandHistory(ctx)
 		return s
+	}
+
+	async loadAgents(outputContext) {
+		const lst = [...this.ctx.agents.list]
+		const agentsIds = [...this.agents]
+		this.ctx.cli.restoreDialogCurrentTargetAgent
+			= this.dialogCurrentTargetAgent
+
+		for (var i = 0; i < lst.length; i++) {
+			const agent = lst[i]
+			agent.index = i
+
+			if (agentsIds.includes(agent.id)) {
+
+				await this.ctx.components.agents.loadAgent(
+					new AIAgent(
+						this.ctx,
+						agent),
+					outputContext
+				)
+			}
+		}
+		if (!agentsIds.includes(this.ctx.cli.dialogCurrentTargetAgent)) {
+			if (agentsIds.length > 0)
+				this.ctx.cli.restoreDialogCurrentTargetAgent
+					= this.ctx.cli.dialogCurrentTargetAgent
+					= agentsIds[0]
+		}
+	}
+
+	async unloadAgents() {
+		const agentsIds = [...this.session.agents]
+		const e = this.ctx.components.event
+		for (var i = 0; i < agentsIds.length; i++) {
+			e.emit(RunCommandEvent, 'agent rm ' + agentsIds[i])
+		}
 	}
 
 	cloneFrom(s) {
