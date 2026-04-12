@@ -6,6 +6,7 @@ import DialogContext from "./dialog-context";
 import { RunCommandEvent } from "./events";
 import AIAgent from "../../../cli/src/components/ai/ai-agent";
 import { DialogContext_Root } from "../config/consts";
+import Vars from "./vars";
 
 export default class Session {
 
@@ -23,6 +24,10 @@ export default class Session {
 	agents = null
 	dialogCurrentTargetAgent = null
 
+	// cli env vars
+	// contexte vars
+	vars = null
+
 	// agents config ? (prompt, instruct, ...)
 
 	// dialog context root (session dialog context)
@@ -31,6 +36,7 @@ export default class Session {
 		this.id = id
 		this.ctx = ctx
 		this.rootDialogContext = DialogContext.empty(DialogContext_Root)
+		this.vars = new Vars(this.ctx)
 	}
 
 	// late init session root data context
