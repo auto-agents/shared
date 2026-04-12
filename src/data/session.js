@@ -151,14 +151,14 @@ export default class Session {
 		this.rootDialogContext = rdc
 
 		// save history (aside, not in)
-		this.saveCommandHistory()
+		//this.saveCommandHistory()	// continously saved
 	}
 
 	async updateCommandHistory(cmd) {
 		this.commandHistory.push(cmd)
 		await appendFile(
 			Session.getHistoryFilePath(this.ctx, this.id),
-			cmd
+			'\n' + cmd.trim()
 		)
 	}
 

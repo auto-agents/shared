@@ -8,6 +8,10 @@ export default class DialogContext {
 
 	static id_count = 0
 
+	parentDialogContext = null
+	childDialogContexts = []
+	messages = []
+
 	dialoger = null
 	agent = null
 	task = null
@@ -18,9 +22,7 @@ export default class DialogContext {
 	systemResponseContentAccumulator = null
 
 	reasoningContent = []
-
 	previousTasks = []
-
 	nodeType = null
 
 	static empty(nodeType) {
@@ -39,6 +41,25 @@ export default class DialogContext {
 		if (nodeType) dc.nodeType = nodeType
 		dc.systemResponseContentAccumulator = null
 		return dc
+	}
+
+	addChildDialogContext(dialogContext) {
+		this.childDialogContexts.push(dialogContext)
+		return this
+	}
+
+	addMessage(message) {
+		this.messages.push(message)
+	}
+
+	addResponse(response) {
+		var m = response.message.content || ''
+		if (response.tool_calls && response.tool_calls.lenngth > 0)
+			m += JSON.stringify(response.tool_calls)
+		this.messages.push({
+			role: response.message.role,
+			content: m
+		})
 	}
 
 	/**
@@ -75,6 +96,8 @@ export default class DialogContext {
 		this.systemResponseContentAccumulator = systemResponseContentAccumulator
 			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
 		this.reasoningContent = reasoningContent
+		this.messages = []
+		this.childDialogContexts = []
 		this.id = DialogContext.id_count
 		DialogContext.id_count++
 		this.logDc()
@@ -85,8 +108,12 @@ export default class DialogContext {
 			(!this.fromAgent && !this.agent) ? '' :
 				`${this.fromAgent?.id || ''} -> ${this.agent?.id || ''}`
 		const nt = this.nodeType?.padEnd(12)
-		const s = `DialogContext: #${this.id} ${nt} [${this.round}] ${dir}`
+		const s = `${this.getMargin()}DialogContext: #${this.id} ${nt} [${this.round}] ${dir}`
 		Logger.log(s)
+	}
+
+	getMargin(n = 0) {
+		return !this.round ? '' : ' '.repeat((this.round - 1 + n) * 3)
 	}
 
 	clone(nodeType, incRound) {
