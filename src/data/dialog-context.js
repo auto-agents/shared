@@ -1,13 +1,17 @@
 import Dialoger from "../../../cli/src/components/dialog/dialoger"
 import OutputContext from "./output-context"
 import PartialContentAccumulatorSplitter from "../utils/text/partial-content-accumulator-splitter"
+import Logger from "../components/sys/logger"
+import { DialogContext_Completion } from "../config/consts"
 
 export default class DialogContext {
+
+	static id_count = 0
 
 	dialoger = null
 	agent = null
 	task = null
-	round = null
+	round = 0
 
 	userOutputContext = null
 	systemOutputContext = null
@@ -17,18 +21,22 @@ export default class DialogContext {
 
 	previousTasks = []
 
-	static empty() {
+	nodeType = null
+
+	static empty(nodeType) {
 		const dc = new DialogContext(
 			null,
 			null,
 			null,
 			null,
 			null,
-			null,
+			0,
+			nodeType,
 			null,
 			null,
 			new Object(),
 			[])
+		if (nodeType) dc.nodeType = nodeType
 		dc.systemResponseContentAccumulator = null
 		return dc
 	}
@@ -49,6 +57,7 @@ export default class DialogContext {
 		fromAgent = null,
 		task = null,
 		round = 1,
+		nodeType = DialogContext_Completion,
 		userOutputContext = null,
 		systemOutputContext = null,
 		systemResponseContentAccumulator = null,
@@ -59,16 +68,29 @@ export default class DialogContext {
 		this.agent = agent
 		this.fromAgent = fromAgent
 		this.task = task
-		this.round = round
+		this.round = round || 1
 		this.userOutputContext = userOutputContext
 		this.systemOutputContext = systemOutputContext
+		this.nodeType = nodeType
 		this.systemResponseContentAccumulator = systemResponseContentAccumulator
 			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
 		this.reasoningContent = reasoningContent
+		this.id = DialogContext.id_count
+		DialogContext.id_count++
+		this.logDc()
 	}
 
-	clone() {
-		return new DialogContext(
+	logDc() {
+		const dir =
+			(!this.fromAgent && !this.agent) ? '' :
+				`${this.fromAgent?.id || ''} -> ${this.agent?.id || ''}`
+		const nt = this.nodeType?.padEnd(12)
+		const s = `DialogContext: #${this.id} ${nt} [${this.round}] ${dir}`
+		Logger.log(s)
+	}
+
+	clone(nodeType) {
+		const dc = new DialogContext(
 			this.outputContext,
 			this.dialoger,
 			this.agent,
@@ -78,8 +100,16 @@ export default class DialogContext {
 			this.userOutputContext,
 			this.systemOutputContext,
 			this.systemResponseContentAccumulator,
-			this.reasoningContent
+			this.reasoningContent,
+			this.nodeType
 		)
+		if (nodeType) dc.nodeType = nodeType
+		return dc
+	}
+
+	withType(nt) {
+		this.nodeType = nt
+		return this
 	}
 
 	nextRound() {

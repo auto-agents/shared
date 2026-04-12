@@ -44,3 +44,13 @@ export const DefaultSessionId = 'default'
 export const ConfigAppendInstructions = '_appendInstructions'
 export const ConfigMergePropsFromPath = '_mergePropsFromPath'
 export const ConfigMergeProps = '_mergeProps'
+
+// dialogs contexts nodes types
+
+export const DialogContext_Root = 'root'
+export const DialogContext_Switch = 'switch'
+export const DialogContext_Completion = 'completion'
+export const DialogContext_Assistant = 'assistant'
+export const DialogContext_ErrorSpeak = 'error speak'
+export const DialogContext_UserSpeak = 'user speak'
+export const DialogContext_User = 'user'

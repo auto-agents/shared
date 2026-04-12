@@ -5,6 +5,7 @@ import { appendFile, writeFile } from "fs/promises";
 import DialogContext from "./dialog-context";
 import { RunCommandEvent } from "./events";
 import AIAgent from "../../../cli/src/components/ai/ai-agent";
+import { DialogContext_Root } from "../config/consts";
 
 export default class Session {
 
@@ -29,7 +30,7 @@ export default class Session {
 	constructor(id, ctx) {
 		this.id = id
 		this.ctx = ctx
-		this.rootDialogContext = DialogContext.empty()
+		this.rootDialogContext = DialogContext.empty(DialogContext_Root)
 	}
 
 	// late init session root data context

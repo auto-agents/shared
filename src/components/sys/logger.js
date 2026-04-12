@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, writeFileSync } from 'node:fs';
 import { join } from 'path'
 
 export default class Logger {
@@ -17,6 +17,12 @@ export default class Logger {
 			Logger.appLogPath,
 			`[${new Date().toISOString()}] ${String(text)}\n`
 		);
+	}
+
+	static clear() {
+		writeFileSync(
+			Logger.appLogPath, ''
+		)
 	}
 
 	static logError(err) {
