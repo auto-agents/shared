@@ -199,7 +199,7 @@ export const trace = (ctx, str) => {
 export const traceWarning = (ctx, str) => {
 	const o = ctx.components.output
 	o.newLine()
-	o.appendLine('⚠️ ' +
+	o.appendLine(ctx.theme.warningTextPrefix +
 		chalk.hex(ctx.theme.warningColor).italic(str)
 	)
 }
@@ -207,7 +207,7 @@ export const traceWarning = (ctx, str) => {
 export const traceError = (ctx, str) => {
 	const o = ctx.components.output
 	o.newLine()
-	o.appendLine('💥 ' +
+	o.appendLine(ctx.theme.errorPrefix +
 		chalk.hex(ctx.theme.errorColor).italic(str)
 	)
 }
