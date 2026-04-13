@@ -2,7 +2,7 @@ export default class Vars {
 
 	mem = {}
 
-	contructor(ctx) {
+	constructor(ctx) {
 		this.ctx = ctx
 		this.init()
 	}
