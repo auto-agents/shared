@@ -222,14 +222,21 @@ export const mdTextBlock = text => {
 const ValueObjectsKeys = [
 ]
 
+const excludeKeys = ['ctx']
+
 const getCircularReplacer = () => {
 	const seen = new WeakSet();
+
 	return (key, value) => {
 
-		if (!ValueObjectsKeys.includes(key)
-			&& (typeof value === "object" && value !== null)) {
+		const excluded = excludeKeys?.includes(key)
+
+		if (excluded || (!ValueObjectsKeys.includes(key)
+			&& (typeof value === "object" && value !== null))) {
+			if (excluded)
+				return '[Redacted]'
 			if (seen.has(value)) {
-				return 'null' //"[Circular]";
+				return '[Circular]' //"[Circular]";
 			}
 			seen.add(value);
 		}
@@ -244,7 +251,9 @@ export const evalValue = (expr) => {
 }
 
 export const toJson = (o, tab = 2) => {
-	return JSON.stringify(o, getCircularReplacer(), tab)
+	return JSON.stringify(o,
+		getCircularReplacer(),
+		tab)
 }
 
 export const jsonClone = o => {
