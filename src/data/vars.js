@@ -17,6 +17,7 @@ export default class Vars {
 
 	set(key, value) {
 		this.mem[key] = value
+		return this
 	}
 
 	get(key) {
@@ -25,6 +26,7 @@ export default class Vars {
 
 	del(key) {
 		delete this.mem[key]
+		return this
 	}
 
 	list() {
