@@ -2,31 +2,33 @@ import chalk from 'chalk'
 
 export default class Status {
 
-    constructor(ctx) {
-        this.ctx = ctx
-    }
+	constructor(ctx) {
+		this.ctx = ctx
+	}
 
-    error(str) {
-        return chalk.hex(this.ctx.theme.errorColor)(str)
-    }
+	error(str) {
+		return this.ctx.theme.errorTextPrefix +
+			chalk.hex(this.ctx.theme.errorColor)(str)
+	}
 
-    warning(str) {
-        return chalk.hex(this.ctx.theme.warningColor)(str)
-    }
+	warning(str) {
+		return this.ctx.theme.warningTextPrefix +
+			chalk.hex(this.ctx.theme.warningColor)(str)
+	}
 
-    statusOn() {
-        return chalk.hex(this.ctx.theme.status.onColor.text)
-            .bgHex(this.ctx.theme.status.onColor.bg).bold(' ON ')
-    }
+	statusOn() {
+		return chalk.hex(this.ctx.theme.status.onColor.text)
+			.bgHex(this.ctx.theme.status.onColor.bg).bold(' ON ')
+	}
 
-    statusOff() {
-        return chalk.hex(this.ctx.theme.status.offColor.text)
-            .bgHex(this.ctx.theme.status.offColor.bg).bold(' OFF ')
-    }
+	statusOff() {
+		return chalk.hex(this.ctx.theme.status.offColor.text)
+			.bgHex(this.ctx.theme.status.offColor.bg).bold(' OFF ')
+	}
 
-    statusUnavailable() {
-        return chalk.hex(this.ctx.theme.status.unavailableColor.text)
-            .bgHex(this.ctx.theme.status.unavailableColor.bg).bold(' Unavailable ')
-    }
+	statusUnavailable() {
+		return chalk.hex(this.ctx.theme.status.unavailableColor.text)
+			.bgHex(this.ctx.theme.status.unavailableColor.bg).bold(' Unavailable ')
+	}
 
 }
