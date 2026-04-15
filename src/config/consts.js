@@ -34,6 +34,11 @@ export const Mouse_Action_Press = 'press'
 export const Mouse_Action_Drag = 'drag'
 export const Mouse_Action_Release = 'release'
 
+// reserved variables ids
+
+export const EnvVar_LastCommandResult = '='
+export const EnvVar_LastError = '#'
+
 // ids
 
 export const TUIAgentId = 'TUI'

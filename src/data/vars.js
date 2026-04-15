@@ -15,6 +15,10 @@ export default class Vars {
 		}
 	}
 
+	serialize(value) {
+
+	}
+
 	set(key, value) {
 		this.mem[key] = value
 		return this

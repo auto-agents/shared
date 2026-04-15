@@ -3,6 +3,14 @@ import path, { join } from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
 
+export const getSession = ctx => {
+	return ctx.components.session.session
+}
+
+export const getSessionVars = ctx => {
+	return ctx.components.session.session.vars
+}
+
 export const sessionPath = (ctx, id = null) => {
 	return join(
 		process.cwd(),
@@ -285,5 +293,7 @@ export default {
 	isServerRunnning,
 	saveToTemp,
 	sessionPath,
-	evalValue
+	evalValue,
+	getSession,
+	getSessionVars
 }
