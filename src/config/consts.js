@@ -38,6 +38,7 @@ export const Mouse_Action_Release = 'release'
 
 export const EnvVar_LastCommandResult = '='
 export const EnvVar_LastError = '#'
+export const EnvVar_LastCommand = '!'
 
 // ids
 
