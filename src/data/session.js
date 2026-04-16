@@ -139,7 +139,7 @@ export default class Session {
 		return s
 	}
 
-	async save() {
+	async save(forceWait = false) {
 		// serialize session data
 		const h = this.commandHistory
 		const ctx = this.ctx
@@ -155,9 +155,7 @@ export default class Session {
 		this.commandHistory = h
 		this.ctx = ctx
 		this.rootDialogContext = rdc
-
-		// save history (aside, not in)
-		//this.saveCommandHistory()	// continously saved
+		// note: session history is regularly auto-saved
 	}
 
 	async updateCommandHistory(cmd) {
