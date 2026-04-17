@@ -230,7 +230,7 @@ export const mdTextBlock = text => {
 const ValueObjectsKeys = [
 ]
 
-const excludeKeys = ['ctx']
+const excludeKeys = ['ctx', 'plugin']
 
 const getCircularReplacer = () => {
 	const seen = new WeakSet();
@@ -244,7 +244,7 @@ const getCircularReplacer = () => {
 			if (excluded)
 				return '[Redacted]'
 			if (seen.has(value)) {
-				return '[Circular]' //"[Circular]";
+				return '[Circular]'
 			}
 			seen.add(value);
 		}
