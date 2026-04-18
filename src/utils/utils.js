@@ -273,6 +273,10 @@ export const jsonClone = o => {
 	return JSON.parse(toJson(o, 0))
 }
 
+export const nonEmpty = str => {
+	return str && str.trim().length > 0
+}
+
 export default {
 	callAsync,
 	wait,
@@ -301,5 +305,6 @@ export default {
 	evalValue,
 	getSession,
 	getSessionVars,
-	cmd
+	cmd,
+	nonEmpty
 }
