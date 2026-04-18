@@ -3,6 +3,11 @@ import path, { join } from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
 
+export const cmd = async (ctx, ...args) => {
+	const cmdCtrl = ctx.components.command
+	return await cmdCtrl.runCommand(args.join(' '))
+}
+
 export const getSession = ctx => {
 	return ctx.components.session.session
 }
@@ -295,5 +300,6 @@ export default {
 	sessionPath,
 	evalValue,
 	getSession,
-	getSessionVars
+	getSessionVars,
+	cmd
 }

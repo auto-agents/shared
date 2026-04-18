@@ -15,7 +15,7 @@ export default class AITool {
 	 * @param {Object} obj
 	 */
 	jsonMDResult(obj) {
-		return new ToolResult(mdBlockJson(toJson(obj, null)))
+		return new ToolResult(mdBlockJson(toJson(obj)))	// /!\ reintroduce formating json output
 	}
 
 	/**
@@ -24,7 +24,7 @@ export default class AITool {
 	 * @returns {ToolResult}
 	 */
 	jsonPlainResult(obj) {
-		return new ToolResult(toJson(obj, null))
+		return new ToolResult(toJson(obj))	// /!\ reintroduce formating json output
 	}
 
 	/**
