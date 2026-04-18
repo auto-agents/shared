@@ -61,3 +61,9 @@ export const DialogContext_ErrorSpeak = 'error speak'
 export const DialogContext_UserSpeak = 'user speak'
 export const DialogContext_User = 'user'
 export const DialogContext_Tool = 'tool'
+
+// ai tools responses types
+
+export const Tool_Output_Format_Json = 'Tool_Output_Format_Json'
+export const Tool_Output_Format_JsonMD = 'Tool_Output_Format_JsonMD'
+export const Tool_Output_Format_PlainText = 'Tool_Output_Format_PlainText'
