@@ -139,22 +139,27 @@ export default class Session {
 		return s
 	}
 
-	async save(forceWait = false) {
+	async save(saveAll = false, forceWait = false) {
 		// serialize session data
 		const h = this.commandHistory
 		const ctx = this.ctx
 		const rdc = this.rootDialogContext
+		const vars = this.vars
 
 		delete this.commandHistory
 		delete this.ctx
 		delete this.rootDialogContext
 
 		const f = sessionDataFile(ctx, this.id)
+
+		delete this.vars
+
 		writeFileSync(f, toJson(this))
 
 		this.commandHistory = h
 		this.ctx = ctx
 		this.rootDialogContext = rdc
+		this.vars = vars
 		// note: session history is regularly auto-saved
 	}
 
