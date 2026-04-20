@@ -4,6 +4,11 @@ import PartialContentAccumulatorSplitter from "../utils/text/partial-content-acc
 import Logger from "../components/sys/logger"
 import { DialogContext_Completion } from "../config/consts"
 
+export const FROM_CLI = 'CLI'
+export const TO_CLI = 'CLI'
+export const FROM_USER = 'USER'
+export const TO_USER = 'USER'
+
 export default class DialogContext {
 
 	static id_count = 0
@@ -43,6 +48,11 @@ export default class DialogContext {
 		return dc
 	}
 
+	setParent(dialogContext) {
+		this.parentDialogContext = dialogContext
+		return this
+	}
+
 	addChildDialogContext(dialogContext) {
 		this.childDialogContexts.push(dialogContext)
 		return this
@@ -50,6 +60,7 @@ export default class DialogContext {
 
 	addMessage(message) {
 		this.messages.push(message)
+		return this
 	}
 
 	addResponse(response) {
@@ -60,6 +71,7 @@ export default class DialogContext {
 			role: response.message.role,
 			content: m
 		})
+		return this
 	}
 
 	/**
@@ -82,12 +94,28 @@ export default class DialogContext {
 		userOutputContext = null,
 		systemOutputContext = null,
 		systemResponseContentAccumulator = null,
-		reasoningContent = []
+		reasoningContent = [],
+		parentDialogContext = null,
+		from = null,
+		to = null
 	) {
 		this.outputContext = outputContext
 		this.dialoger = dialoger
-		this.agent = agent
-		this.fromAgent = fromAgent
+
+		if (typeof fromAgent == 'string')
+			this.from = fromAgent
+		else
+			this.fromAgent = fromAgent
+		if (from)
+			this.from = from
+
+		if (typeof agent == 'string')
+			this.to = agent
+		else
+			this.agent = agent
+		if (to)
+			this.to = to
+
 		this.task = task
 		this.round = round || 1
 		this.userOutputContext = userOutputContext
@@ -97,16 +125,29 @@ export default class DialogContext {
 			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
 		this.reasoningContent = reasoningContent
 		this.messages = []
+
+		this.parentDialogContext = parentDialogContext
 		this.childDialogContexts = []
+
 		this.id = DialogContext.id_count
 		DialogContext.id_count++
 		this.logDc()
 	}
 
 	logDc() {
+		var from = this.from || this.fromAgent?.id
+		var to = this.to || this.agent?.id
+		var idDecorator = id => {
+			if (!id) return id
+			if (id != FROM_CLI && id != TO_USER)
+				id = '🤖 ' + id
+			return id
+		}
+		from = idDecorator(from)
+		to = idDecorator(to)
 		const dir =
-			(!this.fromAgent && !this.agent) ? '' :
-				`${this.fromAgent?.id || ''} -> ${this.agent?.id || ''}`
+			(!from && !to) ? '' :
+				`${from} -> ${to}`
 		const nt = this.nodeType?.padEnd(12)
 		const s = `${this.getMargin()}DialogContext: #${this.id} ${nt} [${this.round}] ${dir}`
 		Logger.log(s)
@@ -116,19 +157,23 @@ export default class DialogContext {
 		return !this.round ? '' : ' '.repeat((this.round - 1 + n) * 3)
 	}
 
-	clone(nodeType, incRound) {
+	clone(nodeType, incRound, from, to, fromAgent, toAgent) {
+
 		const dc = new DialogContext(
 			this.outputContext,
 			this.dialoger,
-			this.agent,
-			this.fromAgent,
+			toAgent || this.agent,
+			fromAgent || this.fromAgent,
 			this.task,
 			incRound ? this.round + 1 : this.round,
 			nodeType || this.nodeType,
 			this.userOutputContext,
 			this.systemOutputContext,
 			this.systemResponseContentAccumulator,
-			this.reasoningContent
+			this.reasoningContent,
+			this.parentDialogContext,
+			from,
+			to
 		)
 		return dc
 	}
