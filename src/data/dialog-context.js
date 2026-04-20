@@ -2,12 +2,7 @@ import Dialoger from "../../../cli/src/components/dialog/dialoger"
 import OutputContext from "./output-context"
 import PartialContentAccumulatorSplitter from "../utils/text/partial-content-accumulator-splitter"
 import Logger from "../components/sys/logger"
-import { DialogContext_Completion } from "../config/consts"
-
-export const FROM_CLI = 'CLI'
-export const TO_CLI = 'CLI'
-export const FROM_USER = 'USER'
-export const TO_USER = 'USER'
+import { DialogContext_Completion, FROM_CLI, TO_USER } from "../config/consts"
 
 export default class DialogContext {
 
@@ -134,7 +129,7 @@ export default class DialogContext {
 		this.logDc()
 	}
 
-	logDc() {
+	toString() {
 		var from = this.from || this.fromAgent?.id
 		var to = this.to || this.agent?.id
 		var idDecorator = id => {
@@ -150,7 +145,11 @@ export default class DialogContext {
 				`${from} -> ${to}`
 		const nt = this.nodeType?.padEnd(12)
 		const s = `${this.getMargin()}DialogContext: #${this.id} ${nt} [${this.round}] ${dir}`
-		Logger.log(s)
+		return s
+	}
+
+	logDc() {
+		Logger.log(this.toString())
 	}
 
 	getMargin(n = 0) {

@@ -61,6 +61,14 @@ export const DialogContext_ErrorSpeak = 'error speak'
 export const DialogContext_UserSpeak = 'user speak'
 export const DialogContext_User = 'user'
 export const DialogContext_Tool = 'tool'
+export const DialogContext_Tool_Loop = 'tool_loop'
+
+// dialog contexts specials sources and targets
+
+export const FROM_CLI = 'CLI'
+export const TO_CLI = 'CLI'
+export const FROM_USER = 'USER'
+export const TO_USER = 'USER'
 
 // ai tools responses types
 
