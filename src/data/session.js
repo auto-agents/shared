@@ -16,9 +16,6 @@ export default class Session {
 	// load time command history
 	commandHistory = []
 
-	// root dialog context
-	rootDialogContext = null
-
 	// loaded plugins / agents
 	// loaded agents ids
 	agents = null
@@ -27,6 +24,9 @@ export default class Session {
 	// cli env vars
 	// contexte vars
 	vars = null
+
+	// root dialog context (dialog tree)
+	rootDialogContext = null
 
 	// agents config ? (prompt, instruct, ...)
 
@@ -37,6 +37,10 @@ export default class Session {
 		this.ctx = ctx
 		this.rootDialogContext = DialogContext.empty(DialogContext_Root)
 		this.vars = new Vars(this.ctx)
+	}
+
+	addChildDialogContext(dialogContext) {
+		this.rootDialogContext.addChildDialogContext(dialogContext)
 	}
 
 	// late init session root data context

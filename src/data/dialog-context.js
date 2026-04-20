@@ -8,22 +8,41 @@ export default class DialogContext {
 
 	static id_count = 0
 
+	// ----- hierarchical properties -----
+
 	parentDialogContext = null
 	childDialogContexts = []
-	messages = []
 
-	dialoger = null
-	agent = null
-	task = null
-	round = 0
+	// ----- content  -----
+
+	messages = []
+	reasoningContent = []
+	documents = []
+
+	// ----- states -----
 
 	userOutputContext = null
 	systemOutputContext = null
 	systemResponseContentAccumulator = null
 
-	reasoningContent = []
+	// ----- context -----
+
+	dialoger = null
+
+	agent = null			// target agent
+	fromAgent = null		// source agent
+	from = null				// from not agent source
+	to = null				// to not agent source
+
+	round = 0
+
+	task = null
 	previousTasks = []
+
+	// ----- properties -----
+
 	nodeType = null
+
 
 	static empty(nodeType) {
 		const dc = new DialogContext(
@@ -48,8 +67,14 @@ export default class DialogContext {
 		return this
 	}
 
+	/**
+	 * hierarchically add a sub dialog context (init its parent)
+	 * @param {DialogContext} dialogContext
+	 * @returns this
+	 */
 	addChildDialogContext(dialogContext) {
 		this.childDialogContexts.push(dialogContext)
+		dialogContext.setParent(this)
 		return this
 	}
 
@@ -150,12 +175,25 @@ export default class DialogContext {
 
 	logDc() {
 		Logger.log(this.toString())
+		return this
 	}
 
 	getMargin(n = 0) {
 		return !this.round ? '' : ' '.repeat((this.round - 1 + n) * 3)
 	}
 
+	/**
+	 * - clone, with eventually round,from,to,fromAgent,toAgent update
+	 * - keep properties
+	 * - result dialog context has no child nodes. but parent preserved
+	 * @param {*} nodeType
+	 * @param {*} incRound
+	 * @param {*} from
+	 * @param {*} to
+	 * @param {*} fromAgent
+	 * @param {*} toAgent
+	 * @returns {DialogContext}
+	 */
 	clone(nodeType, incRound, from, to, fromAgent, toAgent) {
 
 		const dc = new DialogContext(
