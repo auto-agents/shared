@@ -1,4 +1,4 @@
-import { sessionDataFile, sessionPath, toJson } from "../../../shared/src/utils/utils"
+import { getSession, sessionDataFile, sessionPath, toJson } from "../../../shared/src/utils/utils"
 import { existsSync, mkdir, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { appendFile, writeFile } from "fs/promises";
@@ -39,8 +39,13 @@ export default class Session {
 		this.vars = new Vars(this.ctx)
 	}
 
+	static get(ctx) {
+		return getSession(ctx)
+	}
+
 	addChildDialogContext(dialogContext) {
 		this.rootDialogContext.addChildDialogContext(dialogContext)
+		return dialogContext
 	}
 
 	// late init session root data context
