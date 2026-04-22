@@ -43,6 +43,7 @@ export default class DialogContext {
 
 	nodeType = null
 
+	// -----------------------
 
 	static empty(nodeType) {
 		const dc = new DialogContext(
