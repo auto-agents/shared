@@ -12,6 +12,10 @@ export const getSession = ctx => {
 	return ctx.components.session.session
 }
 
+export const getRootDialogContext = ctx => {
+	getSession(ctx).rootDialogContext
+}
+
 export const getSessionVars = ctx => {
 	return ctx.components.session.session.vars
 }
@@ -306,5 +310,6 @@ export default {
 	getSession,
 	getSessionVars,
 	cmd,
-	nonEmpty
+	nonEmpty,
+	getRootDialogContext
 }
