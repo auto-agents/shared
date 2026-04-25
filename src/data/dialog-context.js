@@ -23,6 +23,7 @@ export default class DialogContext {
 
 	userOutputContext = null
 	systemOutputContext = null
+	systemMessageCompletion = null
 	systemResponseContentAccumulator = null
 
 	// ----- context -----
@@ -56,10 +57,10 @@ export default class DialogContext {
 			nodeType,
 			null,
 			null,
-			new Object(),
-			[])
+			new Object())
 		if (nodeType) dc.nodeType = nodeType
 		dc.systemResponseContentAccumulator = null
+		dc.systemMessageCompletion = null
 		return dc
 	}
 
@@ -95,6 +96,16 @@ export default class DialogContext {
 		return this
 	}
 
+	addPartialMessageCompletion(message) {
+		if (this.systemMessageCompletion == null)
+			this.systemMessageCompletion = ''
+		this.systemMessageCompletion += message
+	}
+
+	setPartialMessageCompletion(message) {
+		this.systemMessageCompletion = message
+	}
+
 	/**
 	 * build a new DialogContext necessary to initiale a dialog
 	 * @param {OutputContext} outputContext current output context
@@ -115,7 +126,7 @@ export default class DialogContext {
 		userOutputContext = null,
 		systemOutputContext = null,
 		systemResponseContentAccumulator = null,
-		reasoningContent = [],
+		reasoningContent = '',
 		parentDialogContext = null,
 		from = null,
 		to = null
@@ -144,6 +155,7 @@ export default class DialogContext {
 		this.nodeType = nodeType
 		this.systemResponseContentAccumulator = systemResponseContentAccumulator
 			|| new PartialContentAccumulatorSplitter(dialoger.ctx)
+		this.systemMessageCompletion = null
 		this.reasoningContent = reasoningContent
 		this.messages = []
 
