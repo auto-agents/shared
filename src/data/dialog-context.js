@@ -22,6 +22,7 @@ export default class DialogContext {
 	// ----- states -----
 
 	userOutputContext = null
+	systemOutputContextStart = null
 	systemOutputContext = null
 	systemMessageCompletion = null
 	systemResponseContentAccumulator = null
