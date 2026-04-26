@@ -128,9 +128,22 @@ export const noiseSuppressBySentenceWordCount = (text, minWordsPerSentence = 5) 
 	const t = text.split('\n')
 	const r = []
 	t.forEach(s => {
-		const tt = t.split(' ')
-		if (tt.length >= minWordsPerSentence)
-			r.push(s)
+		s = s.replaceAll('\t', '')
+		while (s.indexOf('  ') > -1)
+			s = s.replaceAll('  ', ' ')
+
+		if (s && s.length) {
+			if (s.endsWith(':') || s.trim().length == 0)
+				// keep title like
+				// keep empty lines
+				r.push(s)
+			else {
+				const tt = s.split(' ')
+					.filter(x => x.length)
+				if (tt.length >= minWordsPerSentence)
+					r.push(s)
+			}
+		}
 	})
 	return r.join('\n')
 }
