@@ -1,5 +1,13 @@
-export const splitSentence = (ctx, text, noTrim = false) => {
-	const conf = ctx.dialoger.sentenceSpliter
+/**
+ * split a sentence for the dialoger sentence spliter
+ * @param {Object} ctx
+ * @param {string} text
+ * @param {boolean} noTrim default false
+ * @param {Object} conf conf. default to ctx.dialoger.sentenceSpliter
+ * @returns
+ */
+export const splitSentence = (ctx, text, noTrim = false, conf) => {
+	conf ||= ctx.dialoger.sentenceSpliter
 	const sc = conf.splitChars
 	var t = []
 	var x = 0
@@ -109,7 +117,26 @@ export const unescapeCodeString = (str) => {
 	return r
 }
 
+/**
+ * suppress 'noisy' words in a string
+ * delete sentences having less word count than the specified value
+ * @param {string} text
+ * @param {number} minWordsPerSentence default 5
+ */
+export const noiseSuppressBySentenceWordCount = (text, minWordsPerSentence = 5) => {
+	if (!text || !text.length) return text
+	const t = text.split('\n')
+	const r = []
+	t.forEach(s => {
+		const tt = t.split(' ')
+		if (tt.length >= minWordsPerSentence)
+			r.push(s)
+	})
+	return r.join('\n')
+}
+
 export default {
 	splitSentence,
-	unescapeCodeString
+	unescapeCodeString,
+	noiseSuppressBySentenceWordCount
 }
