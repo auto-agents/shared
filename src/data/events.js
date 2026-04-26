@@ -2,6 +2,7 @@ export const AppInitializedEvent = 'AppInitializedEvent'
 export const AppStartedEvent = 'AppStartedEvent'
 export const AppExitingEvent = 'AppExitingEvent'
 
+export const CommandOutputEvent = 'CommandOutputEvent'
 export const OutputUpdatedEvent = 'OutputUpdatedEvent'
 export const OutputResizedEvent = 'OutputResizedEvent'
 export const OutputRowsCountUpdatedEvent = 'OutputRowsCountUpdatedEvent'

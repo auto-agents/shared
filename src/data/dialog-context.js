@@ -7,6 +7,7 @@ import { DialogContext_Completion, FROM_CLI, TO_USER } from "../config/consts"
 export default class DialogContext {
 
 	static id_count = 0
+	ctx = null
 
 	// ----- hierarchical properties -----
 
@@ -47,8 +48,9 @@ export default class DialogContext {
 
 	// -----------------------
 
-	static empty(nodeType) {
+	static empty(ctx, nodeType) {
 		const dc = new DialogContext(
+			ctx,
 			null,
 			null,
 			null,
@@ -109,6 +111,7 @@ export default class DialogContext {
 
 	/**
 	 * build a new DialogContext necessary to initiale a dialog
+	 * @param {Object} ctx app context
 	 * @param {OutputContext} outputContext current output context
 	 * @param {Dialoger} dialoger dialoger to be used
 	 * @param {Object} agent loaded agent specification (ctx.components.agents.agents)
@@ -117,6 +120,7 @@ export default class DialogContext {
 	 * @param {number} round round number
 	 */
 	constructor(
+		ctx,
 		outputContext,
 		dialoger,
 		agent,
@@ -132,6 +136,7 @@ export default class DialogContext {
 		from = null,
 		to = null
 	) {
+		this.ctx = ctx
 		this.outputContext = outputContext
 		this.dialoger = dialoger
 
@@ -211,6 +216,7 @@ export default class DialogContext {
 	clone(nodeType, incRound, from, to, fromAgent, toAgent) {
 
 		const dc = new DialogContext(
+			this.ctx,
 			this.outputContext,
 			this.dialoger,
 			toAgent || this.agent,

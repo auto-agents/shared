@@ -35,7 +35,7 @@ export default class Session {
 	constructor(id, ctx) {
 		this.id = id
 		this.ctx = ctx
-		this.rootDialogContext = DialogContext.empty(DialogContext_Root)
+		this.rootDialogContext = DialogContext.empty(ctx, DialogContext_Root)
 		this.vars = new Vars(this.ctx)
 	}
 

@@ -2,10 +2,22 @@ import { existsSync, writeFileSync } from 'fs'
 import path, { join } from 'path'
 import chalk from 'chalk';
 import { TUIAgentId } from '../config/consts.js'
+import { CommandOutputEvent, dialogEvent } from '../data/events.js';
 
-export const cmd = async (ctx, ...args) => {
-	const cmdCtrl = ctx.components.command
-	return await cmdCtrl.runCommand(args.join(' '))
+/**
+ * standard output (output properly handled by DialogController)
+ * @param {DialogContext} dialogContext
+ * @param {string} text
+ */
+export const output = async (dialogContext, text) => {
+	dialogContext.ctx.components.event.emit(
+		CommandOutputEvent,
+		dialogEvent({ dialogContext: dialogContext, message: text }))
+}
+
+export const cmd = async (dialogContext, ...args) => {
+	const cmdCtrl = dialogContext.ctx.components.command
+	return await cmdCtrl.runCommand(args.join(' '), dialogContext)
 }
 
 export const getSession = ctx => {
@@ -205,25 +217,28 @@ export const isServerRunnning = (ctx, server) => {
 	return running
 }
 
-export const trace = (ctx, str) => {
+export const trace = (ctx, str, prependNewLine = true) => {
 	const o = ctx.components.output
-	o.newLine()
+	if (prependNewLine)
+		o.newLine()
 	o.appendLine(
 		chalk.hex(ctx.theme.traceColor).italic(str)
 	)
 }
 
-export const traceWarning = (ctx, str) => {
+export const traceWarning = (ctx, str, prependNewLine = true) => {
 	const o = ctx.components.output
-	o.newLine()
+	if (prependNewLine)
+		o.newLine()
 	o.appendLine(ctx.theme.warningTextPrefix +
 		chalk.hex(ctx.theme.warningColor).italic(str)
 	)
 }
 
-export const traceError = (ctx, str) => {
+export const traceError = (ctx, str, prependNewLine = true) => {
 	const o = ctx.components.output
-	o.newLine()
+	if (prependNewLine)
+		o.newLine()
 	o.appendLine(ctx.theme.errorPrefix +
 		chalk.hex(ctx.theme.errorColor).italic(str)
 	)
